@@ -458,7 +458,11 @@ func (ac *Client) processMfa(mfas []userProof, convergedResponse *ConvergedRespo
 			SessionID:    mfaResp.SessionID,
 		}
 		if mfaReq.AuthMethodID == "PhoneAppOTP" || mfaReq.AuthMethodID == "OneWaySMS" {
-			verifyCode := prompter.StringRequired("Enter verification code")
+			verifyCode := loginDetails.MFAToken
+			if verifyCode == "" {
+				verifyCode = prompter.StringRequired("Enter verification code")
+			}
+			log.Println("verify code" + verifyCode)
 			mfaReq.AdditionalAuthData = verifyCode
 		}
 		if mfaReq.AuthMethodID == "PhoneAppNotification" && i == 0 {
