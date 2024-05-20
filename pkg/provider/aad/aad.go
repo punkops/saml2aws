@@ -461,7 +461,6 @@ func (ac *Client) processMfa(mfas []userProof, convergedResponse *ConvergedRespo
 			if verifyCode == "" {
 				verifyCode = prompter.StringRequired("Enter verification code")
 			}
-			log.Println("verify code" + verifyCode)
 			mfaReq.AdditionalAuthData = verifyCode
 		}
 		if mfaReq.AuthMethodID == "PhoneAppNotification" && i == 0 {
